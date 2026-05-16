@@ -1,0 +1,62 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400;1,500&family=Special+Elite&family=Inter:wght@300;400;500&display=swap');
+
+:root {
+  --font-playfair: 'Playfair Display', Georgia, serif;
+  --font-special-elite: 'Special Elite', 'Courier New', monospace;
+  --font-inter: 'Inter', system-ui, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+html,
+body {
+  height: 100%;
+  overflow: hidden;
+  background-color: #0a0805;
+  color: #e8d5b7;
+}
+
+/* Prevent text selection during narrative */
+.narrative-text {
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+/* iOS Safari full-screen fix */
+@supports (-webkit-touch-callout: none) {
+  html,
+  body {
+    height: -webkit-fill-available;
+  }
+}
+
+/* Smooth scrollbar for dialogue history */
+::-webkit-scrollbar {
+  width: 2px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(196, 168, 130, 0.2);
+  border-radius: 1px;
+}
+
+/* Typography classes */
+.font-narrative {
+  font-family: var(--font-playfair);
+}
+.font-title {
+  font-family: var(--font-special-elite);
+}
+.font-ui {
+  font-family: var(--font-inter);
+}
