@@ -8,7 +8,7 @@ import { SceneBackground } from '@/components/cinematic/SceneBackground'
 import { SceneTransition } from '@/components/narrative/SceneTransition'
 import { SceneIntro } from '@/components/scenes/SceneIntro'
 import { SceneIdentitySetup } from '@/components/scenes/SceneIdentitySetup'
-import { SceneNarrative } from '@/components/scenes/SceneNarrative'
+import { SceneDirector } from '@/components/scenes/SceneDirector'
 import { SceneEpilogue } from '@/components/scenes/SceneEpilogue'
 import { SceneCredits } from '@/components/scenes/SceneCredits'
 import { AudioManager } from '@/components/audio/AudioManager'
@@ -23,40 +23,42 @@ function SceneRenderer({ sceneId }: { sceneId: SceneId }) {
   if (sceneId === 'epilogue') return <SceneEpilogue />
   if (sceneId === 'credits') return <SceneCredits />
 
-  return <SceneNarrative scene={scene} />
+  return <SceneDirector scene={scene} />
 }
 
 export default function ExperiencePage() {
-  const { currentScene, isTransitioning, setTransitioning, toMemory, sessionId } =
-    useGameStore()
+  const {
+    currentScene,
+    isTransitioning,
+    setTransitioning,
+    toMemory,
+    sessionId,
+  } = useGameStore()
 
   const scene = getScene(currentScene)
 
   useEffect(() => {
-    if (isTransitioning) {
-      const timer = setTimeout(() => setTransitioning(false), 1500)
-      return () => clearTimeout(timer)
-    }
+    if (!isTransitioning) return
+    const t = setTimeout(() => setTransitioning(false), 1600)
+    return () => clearTimeout(t)
   }, [isTransitioning, setTransitioning])
 
-  // Sync to Supabase on scene change
   useEffect(() => {
     if (!sessionId) return
     const memory = toMemory()
     fetch('/api/memory', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        memory,
-        complete: currentScene === 'credits',
-      }),
-    }).catch(() => {
-      // Offline — localStorage fallback active via Zustand persist
-    })
+      body: JSON.stringify({ memory, complete: currentScene === 'credits' }),
+    }).catch(() => {/* localStorage fallback active */})
   }, [currentScene, sessionId, toMemory])
 
   return (
-    <CinematicContainer tension={scene.tension} showLetterbox>
+    <CinematicContainer
+      tension={scene.tension}
+      backgroundType={scene.background}
+      showLetterbox
+    >
       <AudioManager />
 
       <AnimatePresence mode="wait">

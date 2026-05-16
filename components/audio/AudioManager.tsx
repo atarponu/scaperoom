@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useRef } from 'react'
-import { playTrack, trackForScene } from '@/lib/audio/manager'
+import { playAmbience, ambienceForScene } from '@/lib/audio/ambient-generator'
 import { useGameStore } from '@/stores/gameStore'
 
 export function AudioManager() {
@@ -11,10 +11,7 @@ export function AudioManager() {
   useEffect(() => {
     if (prevScene.current === currentScene) return
     prevScene.current = currentScene
-    const track = trackForScene(currentScene)
-    playTrack(track).catch(() => {
-      // Audio not available — silent fallback
-    })
+    playAmbience(ambienceForScene(currentScene))
   }, [currentScene])
 
   return null
