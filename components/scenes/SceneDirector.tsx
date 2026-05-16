@@ -6,6 +6,7 @@ import { useGameStore } from '@/stores/gameStore'
 import { ChoicePanel } from '@/components/narrative/ChoicePanel'
 import { NPCPortrait } from '@/components/narrative/NPCPortrait'
 import { NPC_DEFINITIONS } from '@/data/npcs/definitions'
+import { playSfx, sfxForScene } from '@/lib/audio/sfx'
 import type { Scene } from '@/types/narrative'
 import type { DialogueMessage } from '@/types/memory'
 
@@ -283,11 +284,16 @@ export function SceneDirector({ scene }: Props) {
   const [narratorIdx, setNarratorIdx] = useState(0)
   const [narratorVisible, setNarratorVisible] = useState(true)
 
-  // Reset when scene changes
+  // Reset + scene-entry SFX when scene changes
   useEffect(() => {
     setPhase(initialPhase)
     setNarratorIdx(0)
     setNarratorVisible(true)
+    const sfx = sfxForScene(scene.id)
+    if (sfx) {
+      const t = setTimeout(() => playSfx(sfx), 800)
+      return () => clearTimeout(t)
+    }
   }, [scene.id]) // eslint-disable-line
 
   // Title card auto-dismiss after 2.5s

@@ -5,6 +5,7 @@ import { VignetteLayer } from './VignetteLayer'
 import { LetterboxBars } from './LetterboxBars'
 import { ParallaxWrapper } from './ParallaxWrapper'
 import { AtmosphericFx } from './AtmosphericFx'
+import { ParticleSystem } from './ParticleSystem'
 import type { TensionLevel, BackgroundType } from '@/types/narrative'
 
 interface Props {
@@ -31,6 +32,7 @@ export function CinematicContainer({
     <div className="relative h-screen w-screen overflow-hidden bg-ink font-narrative text-parchment animate-flicker">
       <ParallaxWrapper>
         {children}
+        <ParticleSystem backgroundType={backgroundType} tension={tension} />
         <AtmosphericFx tension={tension} backgroundType={backgroundType} />
       </ParallaxWrapper>
       <VignetteLayer intensity={vignetteIntensity} />
