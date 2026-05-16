@@ -367,7 +367,7 @@ export function SceneDirector({ scene }: Props) {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: 'easeOut' }}
-          className="relative mx-4 mb-8 md:mx-16 md:mb-10"
+          className="relative mx-4 mb-20 md:mx-16 md:mb-20"
         >
           <div className="relative flex items-end gap-5 rounded-sm border border-parchment-dim/8 bg-ink/82 px-6 py-5 shadow-2xl backdrop-blur-sm md:px-8 md:py-6">
             {/* NPC Portrait */}
@@ -408,6 +408,7 @@ export function SceneDirector({ scene }: Props) {
               {/* Dialogue */}
               {phase === 'dialogue' && npc && (
                 <NPCDialoguePanel
+                  key={scene.id}
                   npcId={npc.id}
                   npcName={npc.name}
                   staticLines={scene.staticDialogue}

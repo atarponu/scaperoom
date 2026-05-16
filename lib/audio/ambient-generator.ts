@@ -171,6 +171,13 @@ function stopAll(fadeMs: number): Promise<void> {
   })
 }
 
+export async function unlockAudio(): Promise<void> {
+  try {
+    const ctx = getCtx()
+    if (ctx.state === 'suspended') await ctx.resume()
+  } catch { /* no-op */ }
+}
+
 export async function playAmbience(type: AmbienceType): Promise<void> {
   if (type === currentType) return
   try {

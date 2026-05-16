@@ -88,6 +88,23 @@ export const act3Scenes: Scene[] = [
     ],
     npcId: 'marta',
     useAIDialogue: true,
+    staticDialogue: [
+      {
+        speaker: 'npc',
+        text: 'Hartmann. Yes.',
+        emotion: 'careful',
+      },
+      {
+        speaker: 'npc',
+        text: 'I don\'t know that name from a book. You understand the difference.',
+        emotion: 'careful',
+      },
+      {
+        speaker: 'npc',
+        text: 'Tell me why you\'re here. Quietly. And tell me the truth.',
+        emotion: 'careful',
+      },
+    ],
     choices: [
       {
         id: 'tell-about-elsa',

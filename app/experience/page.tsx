@@ -12,6 +12,7 @@ import { SceneDirector } from '@/components/scenes/SceneDirector'
 import { SceneEpilogue } from '@/components/scenes/SceneEpilogue'
 import { SceneCredits } from '@/components/scenes/SceneCredits'
 import { AudioManager } from '@/components/audio/AudioManager'
+import { SceneErrorBoundary } from '@/components/SceneErrorBoundary'
 import { getScene } from '@/data/scenes'
 import type { SceneId } from '@/types/narrative'
 
@@ -61,10 +62,12 @@ export default function ExperiencePage() {
     >
       <AudioManager />
 
-      <AnimatePresence mode="wait">
+      <AnimatePresence mode="sync">
         <SceneTransition key={currentScene} sceneKey={currentScene}>
           <SceneBackground type={scene.background} />
-          <SceneRenderer sceneId={currentScene} />
+          <SceneErrorBoundary sceneId={currentScene}>
+            <SceneRenderer sceneId={currentScene} />
+          </SceneErrorBoundary>
         </SceneTransition>
       </AnimatePresence>
     </CinematicContainer>

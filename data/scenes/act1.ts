@@ -95,6 +95,23 @@ export const act1Scenes: Scene[] = [
     ],
     npcId: 'elsa',
     useAIDialogue: true,
+    staticDialogue: [
+      {
+        speaker: 'npc',
+        text: 'Please. I\'m not — I won\'t make any noise. I promise. I just need a few more days.',
+        emotion: 'fearful',
+      },
+      {
+        speaker: 'npc',
+        text: 'My name is Elsa. Elsa Hartman. I was with my brother but we got separated near the Waterlooplein. That was three weeks ago.',
+        emotion: 'urgent',
+      },
+      {
+        speaker: 'npc',
+        text: 'I don\'t know if he\'s — I don\'t know anything anymore.',
+        emotion: 'neutral',
+      },
+    ],
     choices: [
       {
         id: 'promise-help',

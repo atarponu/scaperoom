@@ -26,6 +26,9 @@ export const SCENE_REGISTRY: Record<SceneId, Scene> = Object.fromEntries(
 
 export function getScene(id: SceneId): Scene {
   const scene = SCENE_REGISTRY[id]
-  if (!scene) throw new Error(`Scene not found: ${id}`)
+  if (!scene) {
+    console.error(`[getScene] unknown scene "${id}", falling back to intro`)
+    return SCENE_REGISTRY['intro']
+  }
   return scene
 }
